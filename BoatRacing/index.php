@@ -5,5 +5,8 @@
         <title>Boat racing</title>
     </head>
     <body>
+        <canvas>
+            
+        </canvas>
     </body>
 </html>
