@@ -15,11 +15,11 @@ function Input()
     this.down = false;
     this.fire1 = false;
     this.fire2 = false;
-    //this.keysCode[''];
+    //this.keysCode[];
+    var keysCode = {};
     
-    this.onKeyUpDown = OnKeyUpDown(event);
+    //this.onKeyUpDown = OnKeyUpDown(event);
     
-    this.onKeyUpDown.this.up;
     
     this.ctor = function()
     {
@@ -38,9 +38,9 @@ function OnKeyUpDown(event)
     {
         var bool = false;
     }
-    switch (evt.keyCode)
+    switch (event.keyCode)
     {
-        case 38:
+        case 87:
             this.up = bool;
 
             break;
@@ -59,5 +59,6 @@ function OnKeyUpDown(event)
 
 function SetOneKey(direction, keyCode)
 {
-    
+    //keysCode[direction] = keyCode;
+    keys(direction, keyCode);
 }
