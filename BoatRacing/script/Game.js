@@ -21,6 +21,7 @@ function ObjGame()
     this.can;
     this.ctx;
 }
+var self = this;
 
 /**
  * 
@@ -29,7 +30,18 @@ function ObjGame()
  */
 function Game(canvas)
 {
-    
+    game = new ObjGame();
+    //game.cars = new Car();
+    //game.input = new Input();
+    //game.map = new Map();
+    //game.images = new Image();
+    //game.pseudo;
+
+    game.can = canvas;
+    game.ctx = canvas.getContext("2d");
+
+    state = "";
+    setInterval("TimerFct()", 50);
 }
 
 /**
@@ -38,7 +50,25 @@ function Game(canvas)
  */
 function TimerFct()
 {
-    
+    switch (state) {
+        case "LoadMap" :
+            StateLoadMap();
+            break;
+        case "LoadImage" :
+            StateLoadImage();
+            break;
+        case "WaitStart" :
+            StateWaitStart();
+            break;
+        case "Play" :
+            StatePlay();
+            break;
+        case "Finished" :
+            StateFinished();
+            break;
+        default :
+            StatePlay();
+    }
 }
 
 /**
@@ -47,7 +77,20 @@ function TimerFct()
  */
 function StateLoadMap()
 {
+    //game.map.Load;
+    //if (game.map.LoadedMap)
+    //    state = "LoadImage";
 
+}
+
+/**
+ * 
+ * @returns {undefined}
+ */
+function StateLoadImage()
+{
+    //if (game.images.LoadedImage)
+    //   state = "WaitStart";
 }
 
 /**
@@ -65,7 +108,10 @@ function StateWaitStart()
  */
 function StatePlay()
 {
-
+    game.ctx.clearRect(0, 0, game.can.width, game.can.height);
+    // cars.ForEachItem(function() {
+    //    this.move();
+    //});
 }
 
 /**
