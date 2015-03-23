@@ -8,5 +8,6 @@
         <canvas>
             
         </canvas>
+        <script type="text/javascript" src="./script/Input.js"></script>
     </body>
 </html>
