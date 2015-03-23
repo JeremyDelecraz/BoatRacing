@@ -4,10 +4,10 @@
         <meta charset="UTF-8">
         <title>Boat racing</title>
     </head>
-    <body>
+    <body onload="Input()">
         <canvas>
             
         </canvas>
-        <script type="text/javascript" src="./script/Input.js"></script>
+        <script type="text/javascript" src="script/Input.js"></script>
     </body>
 </html>

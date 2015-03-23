@@ -15,7 +15,7 @@ function Input()
     this.down = false;
     this.fire1 = false;
     this.fire2 = false;
-    this.keysCode[''];
+    //this.keysCode[''];
     
     this.onKeyUpDown = OnKeyUpDown(event);
     
