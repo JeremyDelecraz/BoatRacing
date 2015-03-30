@@ -4,15 +4,10 @@
         <meta charset="UTF-8">
         <title>Boat racing</title>
     </head>
-    <body onload='Game(document.getElementById("canGame"));Input();'onkeydown="OnKeyUpDown(event)>
+    <body onload="vgGame = new Game( document.getElementById('canGame'));">
         <canvas id="canGame" width="720" height="720">
             
         </canvas>
-        <script>
-            
-            this.SetOneKey("Up", 87);
-            
-        </script>
     </body>
 </html>
 <script type="text/javascript" src="script/Game.js"></script>

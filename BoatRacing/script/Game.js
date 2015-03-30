@@ -1,124 +1,116 @@
 /******************************************
  * Projet : Boat Racing
- * Description : Classe qui gère le jeu
+ * Description : Class qui gère le jeu
  * Date : 23.03.2015
  * Version : 1.0
  * Auteur : Jeremy Delécraz
  * *****************************************/
 
-/**
- * 
- * @returns {ObjGame}
- */
-function ObjGame()
-{
-    this.cars;
-    this.input;
-    this.map;
-    this.images;
-    this.pseudo;
+var vgGame = null;
 
-    this.can;
-    this.ctx;
-}
-var self = this;
 
-/**
- * 
- * @param {type} canvas
- * @returns {undefined}
+/** Constructeur pour l'objet Game
+ * @param    canvas = Le canvas de sortie
  */
 function Game(canvas)
 {
-    game = new ObjGame();
-    //game.cars = new Car();
-    //game.input = new Input();
-    //game.map = new Map();
-    //game.images = new Image();
-    //game.pseudo;
+    var self = this;
 
-    game.can = canvas;
-    game.ctx = canvas.getContext("2d");
+    this.cars = {};
+    this.input = {};
+    this.map = {};
+    this.images = {};
+    this.pseudo = "";
 
-    state = "";
-    setInterval("TimerFct()", 50);
+    this.can = canvas;
+    this.ctx = canvas.getContext("2d");
+
+    this.state = "";
+    setInterval(function() {
+        self.TimerFct();
+    }, 1000);
+
 }
 
-/**
- * 
- * @returns {undefined}
- */
-function TimerFct()
+Game.prototype.TimerFct = function()
 {
-    switch (state) {
+
+    switch (this.state) {
         case "LoadMap" :
-            StateLoadMap();
+            this.StateLoadMap();
             break;
         case "LoadImage" :
-            StateLoadImage();
+            this.StateLoadImage();
             break;
         case "WaitStart" :
-            StateWaitStart();
+            this.StateWaitStart();
             break;
         case "Play" :
-            StatePlay();
+            this.StatePlay();
             break;
         case "Finished" :
-            StateFinished();
+            this.StateFinished();
             break;
         default :
-            StatePlay();
+            this.StateLoadMap();
     }
-}
+
+    console.log(this.state);
+};
 
 /**
  * 
  * @returns {undefined}
  */
-function StateLoadMap()
+Game.prototype.StateLoadMap = function()
 {
-    //game.map.Load;
-    //if (game.map.LoadedMap)
-    //    state = "LoadImage";
+    //this.map.Load;
+    //if (this.map.LoadedMap)
+    this.state = "LoadImage";
 
-}
+};
+/**
+ * 
+ * @returns {undefined}
+ */
+Game.prototype.StateLoadImage = function()
+{
+    //if (this.images.LoadedImage)
+    this.state = "WaitStart";
+};
 
 /**
  * 
  * @returns {undefined}
  */
-function StateLoadImage()
+Game.prototype.StateWaitStart = function()
 {
-    //if (game.images.LoadedImage)
-    //   state = "WaitStart";
-}
+    //if (this.cars.sprites.Length() >= 4)
+    this.state = "Play";
+};
 
 /**
  * 
  * @returns {undefined}
  */
-function StateWaitStart()
+Game.prototype.StatePlay = function()
 {
-
-}
-
-/**
- * 
- * @returns {undefined}
- */
-function StatePlay()
-{
-    game.ctx.clearRect(0, 0, game.can.width, game.can.height);
-    // cars.ForEachItem(function() {
+    this.ctx.clearRect(0, 0, this.can.width, this.can.height);
+    // this.cars.ForEachItem(function() {
     //    this.move();
     //});
-}
+    //this.map.draw(,);
+    // this.cars.ForEachItem(function() {
+    //    this.Show(self.map.px,self.map.py);
+    //});
+    this.state = "Finished";
+};
 
 /**
  * 
  * @returns {undefined}
  */
-function StateFinished()
+Game.prototype.StateFinished = function()
 {
-
-}
+    this.state = "";
+};
