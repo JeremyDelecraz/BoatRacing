@@ -17,7 +17,8 @@ function Sprite(ctx, img, x, y, frame, anim, rate) {
    this.sx = frame; //La position en x dans l'image.
    this.sy = anim; //La position en y dans l'image.
    this.rate = rate; //La vitesse de changement de sprite (paramètre).
-   this.rayon; //Le rayon du sprite pour calculer une hitbox.
+   this.radius = this.w / 2; //Le rayon du sprite pour calculer une hitbox.
+   this.energy = 100; //Vie du sprite
    this.update; //Pour le réseau.
    this.ctx = ctx; //Contexte dans lequel va se trouver l'image (paramètre).
    this.Show = function() { //Fonction pour afficher le sprite.
@@ -62,10 +63,14 @@ function Sprite(ctx, img, x, y, frame, anim, rate) {
    this.Colision = function(opponentBoat) { //Fonction qui va gérer la collision, prend en paramètre un bateau étrangé.
       //On fait pythagore pour savoir si le rayon de l'un va dans l'autre.
       var pythagore = Math.sqrt(Math.pow((this.x - opponentBoat.x), 2) + Math.pow((this.y - opponentBoat.y), 2));
-      
-      if(pythagore <= (this.radius + opponentBoat.radius))
+
+      if (pythagore <= (this.radius + opponentBoat.radius))
       {
          return true;
       }
+   };
+   this.IsDead = function()
+   {
+
    };
 }
