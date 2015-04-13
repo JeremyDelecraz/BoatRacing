@@ -9,7 +9,8 @@
 var vgGame = null;
 
 
-/** Constructeur pour l'objet Game
+/** 
+ * Constructeur pour l'objet Game
  * @param    canvas = Le canvas de sortie
  */
 function Game(canvas)
@@ -32,6 +33,9 @@ function Game(canvas)
 
 }
 
+/** 
+ * Le timer
+ */
 Game.prototype.TimerFct = function()
 {
 
@@ -54,13 +58,11 @@ Game.prototype.TimerFct = function()
         default :
             this.StateLoadMap();
     }
-
-    console.log(this.state);
+    //console.log(this.state);
 };
 
 /**
- * 
- * @returns {undefined}
+ * Chargement de la map
  */
 Game.prototype.StateLoadMap = function()
 {
@@ -70,8 +72,7 @@ Game.prototype.StateLoadMap = function()
 
 };
 /**
- * 
- * @returns {undefined}
+ * Chargement des sprites
  */
 Game.prototype.StateLoadImage = function()
 {
@@ -80,8 +81,7 @@ Game.prototype.StateLoadImage = function()
 };
 
 /**
- * 
- * @returns {undefined}
+ * Verification si tout les joueur sont la
  */
 Game.prototype.StateWaitStart = function()
 {
@@ -90,8 +90,7 @@ Game.prototype.StateWaitStart = function()
 };
 
 /**
- * 
- * @returns {undefined}
+ * Le moment de jeu
  */
 Game.prototype.StatePlay = function()
 {
@@ -107,10 +106,9 @@ Game.prototype.StatePlay = function()
 };
 
 /**
- * 
- * @returns {undefined}
+ * Lorsque la course est finie
  */
 Game.prototype.StateFinished = function()
 {
-    this.state = "";
+    
 };
