@@ -15,21 +15,22 @@ var vgGame = null;
  */
 function Game(canvas)
 {
-    var self = this;
+   var self = this;
 
-    this.cars = {};
-    this.input = {};
-    this.map = {};
-    this.images = {};
-    this.pseudo = "";
+   this.cars = {};
+   this.input = {};
+   this.map = {};
+   this.images = {};
+   this.pseudo = "";
+   this.timeStart = 3;
 
-    this.can = canvas;
-    this.ctx = canvas.getContext("2d");
+   this.can = canvas;
+   this.ctx = canvas.getContext("2d");
 
-    this.state = "";
-    setInterval(function() {
-        self.TimerFct();
-    }, 1000);
+   this.state = "";
+   setInterval(function() {
+      self.TimerFct();
+   }, 1000);
 
 }
 
@@ -38,27 +39,27 @@ function Game(canvas)
  */
 Game.prototype.TimerFct = function()
 {
-
-    switch (this.state) {
-        case "LoadMap" :
-            this.StateLoadMap();
-            break;
-        case "LoadImage" :
-            this.StateLoadImage();
-            break;
-        case "WaitStart" :
-            this.StateWaitStart();
-            break;
-        case "Play" :
-            this.StatePlay();
-            break;
-        case "Finished" :
-            this.StateFinished();
-            break;
-        default :
-            this.StateLoadMap();
-    }
-    //console.log(this.state);
+   this.ctx.clearRect(0, 0, this.can.width, this.can.height);
+   switch (this.state) {
+      case "LoadMap" :
+         this.StateLoadMap();
+         break;
+      case "LoadImage" :
+         this.StateLoadImage();
+         break;
+      case "WaitStart" :
+         this.StateWaitStart();
+         break;
+      case "Play" :
+         this.StatePlay();
+         break;
+      case "Finished" :
+         this.StateFinished();
+         break;
+      default :
+         this.StateLoadMap();
+   }
+   //console.log(this.state);
 };
 
 /**
@@ -66,9 +67,9 @@ Game.prototype.TimerFct = function()
  */
 Game.prototype.StateLoadMap = function()
 {
-    //this.map.Load;
-    //if (this.map.LoadedMap)
-    this.state = "LoadImage";
+   //this.map.Load;
+   //if (this.map.LoadedMap)
+   this.state = "LoadImage";
 
 };
 /**
@@ -76,17 +77,34 @@ Game.prototype.StateLoadMap = function()
  */
 Game.prototype.StateLoadImage = function()
 {
-    //if (this.images.LoadedImage)
-    this.state = "WaitStart";
+   //if (this.images.LoadedImage)
+   this.state = "WaitStart";
 };
 
 /**
- * Verification si tout les joueur sont la
+ * Verification si tout les joueurs sont la
  */
 Game.prototype.StateWaitStart = function()
 {
-    //if (this.cars.sprites.Length() >= 4)
-    this.state = "Play";
+
+   this.ctx.font = "29pt Calibri,Geneva,Arial";
+   this.ctx.fillStyle = "rgb(0,0,0)";
+   //if (this.cars.sprites.Length() >= 4)
+   //{
+      if (this.timeStart !== 0) {
+         this.ctx.fillText(this.timeStart, this.can.width / 2, this.can.height / 2);
+         this.timeStart--;
+      }
+      else {
+         this.ctx.fillText("GO !!!", this.can.width / 2 - 45, this.can.height / 2);
+         this.timeStart = 3;
+         this.state = "Play";
+      }
+   //}
+   //else
+   //{
+      this.ctx.fillText("Il manque encore des joueurs", this.can.width / 2 - 225, this.can.height / 2);
+   //}
 };
 
 /**
@@ -94,15 +112,13 @@ Game.prototype.StateWaitStart = function()
  */
 Game.prototype.StatePlay = function()
 {
-    this.ctx.clearRect(0, 0, this.can.width, this.can.height);
-    // this.cars.ForEachItem(function() {
-    //    this.move();
-    //});
-    //this.map.draw(,);
-    // this.cars.ForEachItem(function() {
-    //    this.Show(self.map.px,self.map.py);
-    //});
-    this.state = "Finished";
+   
+   // this.cars.ForEachItem(function() {
+   //    this.move();
+   //    self.map.draw(this.x,this.y);
+   //    this.Show(self.map.px,self.map.py);
+   //});
+   this.state = "Finished";
 };
 
 /**
@@ -110,5 +126,5 @@ Game.prototype.StatePlay = function()
  */
 Game.prototype.StateFinished = function()
 {
-    
+
 };
