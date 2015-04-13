@@ -6,10 +6,22 @@
  * Auteur : Alex Perritaz
  * *****************************************/
 
+function initialise()
+{
+   // Get the canvas element
+   canvas = document.getElementById("canvas");
+   ctx = canvas.getContext("2d");
+
+   // Create a new map
+   mapy = new Map();
+
+   mapy.Draw(0, 0);
+}
+
 function Map()
 {
    // Tableau à 2 dimensions
-   var map = [
+   this.map = [
       [4, 4, 2, 4, 4, 8, 1, 1, 1, 1, 1, 9, 4, 4, 4, 4, 4, 4, 4, 4, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 4, 4, 2, 2, 4, 4, 4, 4],
       [2, 4, 4, 4, 2, 8, 1, 1, 1, 1, 1, 9, 4, 4, 2, 4, 4, 2, 2, 4, 2, 2, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 4, 4, 2, 2, 2, 2, 2, 4, 2, 2, 2, 4, 4, 4, 4, 2, 4, 4],
       [2, 4, 2, 4, 2, 8, 1, 1, 1, 1, 1, 9, 4, 4, 4, 4, 4, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 4, 4, 4, 4, 2, 2, 4, 4, 2, 2, 2, 4, 2, 2, 4, 2, 4, 4, 2, 2, 4, 4, 4],
@@ -66,8 +78,8 @@ function Map()
    this.w = 1600; // Int
    this.h = 1600; // Int
    // Indique les coordonnées du point supérieur-gauche
-   this.px = posXBateau - 20 / 2; // Int
-   this.py = posYBateau - 20 / 2; // Int
+   //this.px = posXBateau - 20 / 2; // Int
+   //this.py = posYBateau - 20 / 2; // Int
    // Tableau indexé - Image à afficher - Progression freinée - Perte d'energie
    this.tiles = [
    ];
@@ -101,18 +113,13 @@ Map.prototype.Loaded = function()
  */
 Map.prototype.Draw = function(x, y)
 {
-   var water = new Image();
-   
-   water.src = '1.jpg';
-   
    for (var i = 0; i < this.map.length; i++)
    {
       for (var j = 0; j < this.map[i].length; j++)
       {
-         if(map[i][j] === 1)
-         {
-            Game.ctx.drawImage(water,0,0,32,32);
-         }
+         var img = document.getElementById(this.map[i][j]);
+         //img.src = 'src/' + this.map[i][j] + '.jpg';
+         ctx.drawImage(img, 32 * j, 32 * i, 32, 32);
       }
    }
 }
