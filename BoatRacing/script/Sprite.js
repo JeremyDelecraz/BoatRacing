@@ -60,7 +60,7 @@ function Sprite(ctx, img, x, y, frame, anim, rate) {
       this.sy = (num * this.h) - this.h;
       this.sx = 0;
    };
-   this.Colision = function(opponentBoat) { //Fonction qui va gérer la collision, prend en paramètre un bateau étrangé.
+   this.Colision = function(opponentBoat) { //Fonction qui va gérer la collision, prend en paramètre un bateau adversaire.
       //On fait pythagore pour savoir si le rayon de l'un va dans l'autre.
       var pythagore = Math.sqrt(Math.pow((this.x - opponentBoat.x), 2) + Math.pow((this.y - opponentBoat.y), 2));
 
