@@ -6,10 +6,22 @@
  * Auteur : Alex Perritaz
  * *****************************************/
 
+function initialise()
+{
+   // Get the canvas element
+   canvas = document.getElementById("canvas");
+   ctx = canvas.getContext("2d");
+
+   // Create a new map
+   mapy = new Map();
+
+   mapy.Draw(50 , 50);
+}
+
 function Map()
 {
    // Tableau à 2 dimensions
-   var map = [
+   this.map = [
       [4, 4, 2, 4, 4, 8, 1, 1, 1, 1, 1, 9, 4, 4, 4, 4, 4, 4, 4, 4, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 4, 4, 2, 2, 4, 4, 4, 4],
       [2, 4, 4, 4, 2, 8, 1, 1, 1, 1, 1, 9, 4, 4, 2, 4, 4, 2, 2, 4, 2, 2, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 4, 4, 2, 2, 2, 2, 2, 4, 2, 2, 2, 4, 4, 4, 4, 2, 4, 4],
       [2, 4, 2, 4, 2, 8, 1, 1, 1, 1, 1, 9, 4, 4, 4, 4, 4, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 4, 4, 4, 4, 2, 2, 4, 4, 2, 2, 2, 4, 2, 2, 4, 2, 4, 4, 2, 2, 4, 4, 4],
@@ -66,11 +78,10 @@ function Map()
    this.w = 1600; // Int
    this.h = 1600; // Int
    // Indique les coordonnées du point supérieur-gauche
-   this.px = posXBateau - 20 / 2; // Int
-   this.py = posYBateau - 20 / 2; // Int
+   //this.px = x - (20 / 2); // Int
+   //this.py = y - (12 / 2); // Int
    // Tableau indexé - Image à afficher - Progression freinée - Perte d'energie
-   this.tiles = [
-   ];
+   this.tiles = [];
    // Objet contenant des données reçues du serveur - Carte - Nom images tuiles / items
    var mapjson;
 }
@@ -101,19 +112,47 @@ Map.prototype.Loaded = function()
  */
 Map.prototype.Draw = function(x, y)
 {
-   var water = new Image();
+   var posx = 0;
+   var posy = 0;
    
-   water.src = '1.jpg';
+   var top = y - (12 / 2);
+   var left = x - (20 / 2);
+   var bottom = y + (12 / 2);
+   var right = x + (20 / 2);
    
-   for (var i = 0; i < this.map.length; i++)
+   // Si le bateau est trop proche de la bordure de la map
+   // Empêcher la map de sortir hors zone
+   if(left < 0)
    {
-      for (var j = 0; j < this.map[i].length; j++)
+      left = 0;
+      right = 20;
+   }
+   if(right > 50)
+   {
+      right = 50;
+      left = 50-20;
+   }
+   if(top < 0)
+   {
+      top = 0;
+      bottom = 12;
+   }
+   if(bottom > 50)
+   {
+      bottom = 50;
+      top = 50-12;
+   }
+   
+   for (var height = top; height < bottom; height++)
+   {
+      for (var width = left; width < right; width++)
       {
-         if(map[i][j] === 1)
-         {
-            Game.ctx.drawImage(water,0,0,32,32);
-         }
+         var img = document.getElementById(this.map[height][width]);
+         ctx.drawImage(img, 0, 0, 32, 32, posx * 32,  posy * 32, 32, 32);
+         posx++;
       }
+      posx = 0;
+      posy++;
    }
 }
 
@@ -124,5 +163,5 @@ Map.prototype.Draw = function(x, y)
  */
 Map.prototype.GetTile = function(x, y)
 {
-
+   
 }
