@@ -16,7 +16,6 @@ var vgGame = null;
 function Game(canvas) {
    var self = this;
 
-
    this.pseudo = "toto";
    this.cars = new Items(this.pseudo);
    this.input = new Input();
@@ -71,7 +70,6 @@ Game.prototype.TimerFct = function() {
       default :
          this.StateLoadMap();
    }
-   //console.log(this.state);
 };
 
 /**
@@ -140,7 +138,7 @@ Game.prototype.StateWaitStart = function() {
  * Le moment de jeu
  */
 Game.prototype.StatePlay = function() {
-   //this.map.Draw()
+   this.map.Draw(0,0)
    this.cars.ForEachItem( function(cars, id, sprite) {
       sprite.Move();
       sprite.Show();
@@ -156,5 +154,5 @@ Game.prototype.StatePlay = function() {
  * Lorsque la course est finie
  */
 Game.prototype.StateFinished = function() {
-
+   
 };
