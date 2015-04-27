@@ -13,8 +13,7 @@ var vgGame = null;
  * Constructeur pour l'objet Game
  * @param    canvas = Le canvas de sortie
  */
-function Game(canvas)
-{
+function Game(canvas){
    var self = this;
 
    this.cars = {};
@@ -23,6 +22,7 @@ function Game(canvas)
    this.images = {};
    this.pseudo = "";
    this.timeStart = 3;
+   this.nbTime = 0;
 
    this.can = canvas;
    this.ctx = canvas.getContext("2d");
@@ -30,15 +30,14 @@ function Game(canvas)
    this.state = "";
    setInterval(function() {
       self.TimerFct();
-   }, 1000);
+   }, 50);
 
 }
 
 /** 
  * Le timer
  */
-Game.prototype.TimerFct = function()
-{
+Game.prototype.TimerFct = function(){
    this.ctx.clearRect(0, 0, this.can.width, this.can.height);
    switch (this.state) {
       case "LoadMap" :
@@ -65,18 +64,17 @@ Game.prototype.TimerFct = function()
 /**
  * Chargement de la map
  */
-Game.prototype.StateLoadMap = function()
-{
+Game.prototype.StateLoadMap = function(){
    //this.map.Load;
    //if (this.map.LoadedMap)
    this.state = "LoadImage";
 
 };
+
 /**
  * Chargement des sprites
  */
-Game.prototype.StateLoadImage = function()
-{
+Game.prototype.StateLoadImage = function(){
    //if (this.images.LoadedImage)
    this.state = "WaitStart";
 };
@@ -84,35 +82,39 @@ Game.prototype.StateLoadImage = function()
 /**
  * Verification si tout les joueurs sont la
  */
-Game.prototype.StateWaitStart = function()
-{
-
+Game.prototype.StateWaitStart = function(){
    this.ctx.font = "29pt Calibri,Geneva,Arial";
    this.ctx.fillStyle = "rgb(0,0,0)";
    //if (this.cars.sprites.Length() >= 4)
    //{
-      if (this.timeStart !== 0) {
-         this.ctx.fillText(this.timeStart, this.can.width / 2, this.can.height / 2);
+   if (this.timeStart !== 0) {
+      this.ctx.fillText(this.timeStart, this.can.width / 2, this.can.height / 2);
+      if (this.nbTime === 500)
+      {
          this.timeStart--;
-      }
-      else {
-         this.ctx.fillText("GO !!!", this.can.width / 2 - 45, this.can.height / 2);
-         this.timeStart = 3;
-         this.state = "Play";
-      }
+         this.nbTime = 0;
+      } else
+         this.nbTime += 50;
+
+   }
+   else {
+      this.ctx.fillText("GO !!!", this.can.width / 2 - 45, this.can.height / 2);
+      this.timeStart = 3;
+      this.state = "Play";
+   }
    //}
    //else
    //{
-      this.ctx.fillText("Il manque encore des joueurs", this.can.width / 2 - 225, this.can.height / 2);
+   //var nbPlayer = 4 - this.cars.sprites.Length();
+   //this.ctx.fillText("Il manque encore " + nbPlayer + " joueurs", this.can.width / 2 - 225, this.can.height / 2);
    //}
 };
 
 /**
  * Le moment de jeu
  */
-Game.prototype.StatePlay = function()
-{
-   
+Game.prototype.StatePlay = function(){
+
    // this.cars.ForEachItem(function() {
    //    this.move();
    //    self.map.draw(this.x,this.y);
@@ -124,7 +126,6 @@ Game.prototype.StatePlay = function()
 /**
  * Lorsque la course est finie
  */
-Game.prototype.StateFinished = function()
-{
+Game.prototype.StateFinished = function(){
 
 };
