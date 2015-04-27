@@ -60,7 +60,6 @@ function Input()
                 this.left = bool;
         }
     };
-    /*
     // Afficher l'état du clavier
     this.getState = function() {
         return ((this.left)  ? 'left ' : ' ') + 
@@ -68,5 +67,5 @@ function Input()
                ((this.down)  ? 'down'  : ' ') + 
                ((this.right) ? 'right' : ' ') + 
                '';
-    };*/
+    };
 }

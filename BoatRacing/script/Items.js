@@ -12,7 +12,7 @@
 function Items( vaId )
 {
    // Parametre de la classe ItemsSet
-   this.sprites = new Array();
+   this.sprites = {};
    this.localId = vaId;
    this.loadTime = Date.now();
    //this.startTime = 
@@ -89,10 +89,9 @@ function Items( vaId )
     */
    this.ForEachItem = function(vaFct)
    {
-      for (i = 0; i < this.Player.length; i++)
+      for(var id in this.sprites)
       {
-         id = this.Player[i].id;
-         this.sprites[id].vaFct();
+         vaFct( this, id, this.sprites[id] );
       }
    };
 }

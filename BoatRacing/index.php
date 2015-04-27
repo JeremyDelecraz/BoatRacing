@@ -13,8 +13,11 @@
         <canvas id="canGame" width="720" height="720">
 
         </canvas>
+        <p id="ppp"></p>
     </body>
     <script type="text/javascript" src="script/Game.js"></script>
     <script type="text/javascript" src="script/Input.js"></script>
     <script type="text/javascript" src="script/Loader.js"></script>
+    <script type="text/javascript" src="script/Items.js"></script>
+    <script type="text/javascript" src="script/Sprite.js"></script>
 </html>

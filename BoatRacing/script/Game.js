@@ -16,15 +16,15 @@ var vgGame = null;
 function Game(canvas) {
    var self = this;
 
-   this.cars = new Items();
-   this.input = {};
-   input.SetOneKey("up", 87);
-   input.SetOneKey("down", 83);
-   input.SetOneKey("left", 65);
-   input.SetOneKey("right", 68);   // 
-   input.SetOneKey("fire1", 16);   // shift
-   input.SetOneKey("fire2", 17);   // ctrl
-   
+
+   this.pseudo = "toto";
+   this.cars = new Items(this.pseudo);
+   this.input = new Input();
+   this.input.SetOneKey("up", 87);     // W
+   this.input.SetOneKey("left", 65);   // A
+   this.input.SetOneKey("down", 83);   // S
+   this.input.SetOneKey("right", 68);  // D
+
    this.map = new Map();
 
    var listImage = {};
@@ -34,14 +34,13 @@ function Game(canvas) {
    }
    this.images = new Loader(listImage);
 
-   this.pseudo = "toto";
    this.timeStart = 3;
    this.nbTime = 0;
 
    this.can = canvas;
    this.ctx = canvas.getContext("2d");
 
-   this.state = "";
+   this.state = "WaitStart";
    setInterval(function() {
       self.TimerFct();
    }, 50);
@@ -79,7 +78,7 @@ Game.prototype.TimerFct = function() {
  * Chargement de la map
  */
 Game.prototype.StateLoadMap = function() {
-   this.map.Load();
+   //this.map.Load();
    if (this.map.Loaded)
       this.state = "LoadImage";
 
@@ -97,8 +96,17 @@ Game.prototype.StateLoadImage = function() {
  * Verification si tout les joueurs sont la
  */
 Game.prototype.StateWaitStart = function() {
+   if (this.cars.sprites.length == 0)
+   {
+      this.cars.sprites.push( new Sprite(this.ctx, "Images/Map/1.jpg", 10, 10, 0, 0, 0) );
+   }
+   
    this.cars.ForEachItem(function() {
-
+      if (typeof(this) === "string")
+      {
+         this.localId = this.pseudo;
+         this.sprites = new Sprite(this.ctx, "Images/Map/1.jpg", 10, 10, 0, 0, 0);
+      }
    });
 
    this.ctx.font = "29pt Calibri,Geneva,Arial";
@@ -132,14 +140,16 @@ Game.prototype.StateWaitStart = function() {
  * Le moment de jeu
  */
 Game.prototype.StatePlay = function() {
-
-   this.cars.ForEachItem(function() {
-      this.move();
-      self.map.draw(this.x, this.y);
-      this.Show(self.map.px, self.map.py);
+   //this.map.Draw()
+   this.cars.ForEachItem( function(cars, id, sprite) {
+      sprite.Move();
+      sprite.Show();
+      //this.sprites[id].Move();
+      //self.map.draw(this.sprites[id].x, this.sprites[id].y);
+      //this.sprites[id].Show(self.map.px, self.map.py);
    });
-   this.cars.SendData();
-   this.state = "Finished";
+   //this.cars.SendData();
+   //this.state = "Finished";
 };
 
 /**
