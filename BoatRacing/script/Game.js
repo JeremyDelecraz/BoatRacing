@@ -40,7 +40,7 @@ function Game(canvas) {
    this.can = canvas;
    this.ctx = canvas.getContext("2d");
 
-   this.state = "WaitStart";
+   this.state = "";
    setInterval(function() {
       self.TimerFct();
    }, 50);
@@ -78,7 +78,7 @@ Game.prototype.TimerFct = function() {
  * Chargement de la map
  */
 Game.prototype.StateLoadMap = function() {
-   //this.map.Load();
+   this.map.Draw(0,0);
    if (this.map.Loaded)
       this.state = "LoadImage";
 
@@ -96,7 +96,7 @@ Game.prototype.StateLoadImage = function() {
  * Verification si tout les joueurs sont la
  */
 Game.prototype.StateWaitStart = function() {
-   if (this.cars.sprites.length == 0)
+   /*if (this.cars.sprites.length == 0)
    {
       this.cars.sprites.push( new Sprite(this.ctx, "Images/Map/1.jpg", 10, 10, 0, 0, 0) );
    }
@@ -107,7 +107,7 @@ Game.prototype.StateWaitStart = function() {
          this.localId = this.pseudo;
          this.sprites = new Sprite(this.ctx, "Images/Map/1.jpg", 10, 10, 0, 0, 0);
       }
-   });
+   });*/
 
    this.ctx.font = "29pt Calibri,Geneva,Arial";
    this.ctx.fillStyle = "rgb(0,0,0)";
