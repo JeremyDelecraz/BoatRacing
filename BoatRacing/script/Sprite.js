@@ -20,6 +20,8 @@ function Sprite(ctx, img, x, y, frame, anim, rate) {
    this.radius = this.w / 2; //Le rayon du sprite pour calculer une hitbox.
    this.energy = 100; //Vie du sprite
    this.update; //Pour le réseau.
+   this.dead = false; //Définni si le bateau c'est fait touché ou non.
+   this.shield = 0; //Bouclier pour quand deux bateau se rentre dedans.
    this.ctx = ctx; //Contexte dans lequel va se trouver l'image (paramètre).
    this.Show = function() { //Fonction pour afficher le sprite.
       //Si l'intervalle est égale à 100, on change la position dans le sprite.
@@ -36,6 +38,8 @@ function Sprite(ctx, img, x, y, frame, anim, rate) {
          //On remet l'intervalle à 0.
          this.rate = 0;
       }
+      //On baise le numéro du bouclier.
+      this.shield--;
       //Sauvegarde du contex te.
       this.ctx.save();
       this.ctx.translate(this.x, this.y);
