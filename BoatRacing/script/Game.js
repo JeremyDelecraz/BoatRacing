@@ -13,14 +13,28 @@ var vgGame = null;
  * Constructeur pour l'objet Game
  * @param    canvas = Le canvas de sortie
  */
-function Game(canvas){
+function Game(canvas) {
    var self = this;
 
-   this.cars = {};
+   this.cars = new Items();
    this.input = {};
-   this.map = {};
-   this.images = {};
-   this.pseudo = "";
+   input.SetOneKey("up", 87);
+   input.SetOneKey("down", 83);
+   input.SetOneKey("left", 65);
+   input.SetOneKey("right", 68);   // 
+   input.SetOneKey("fire1", 16);   // shift
+   input.SetOneKey("fire2", 17);   // ctrl
+   
+   this.map = new Map();
+
+   var listImage = {};
+   for (i = 1; i < 31; i++)
+   {
+      listImage[i - 1] = "Images/Map/" + i + ".jpg";
+   }
+   this.images = new Loader(listImage);
+
+   this.pseudo = "toto";
    this.timeStart = 3;
    this.nbTime = 0;
 
@@ -37,7 +51,7 @@ function Game(canvas){
 /** 
  * Le timer
  */
-Game.prototype.TimerFct = function(){
+Game.prototype.TimerFct = function() {
    this.ctx.clearRect(0, 0, this.can.width, this.can.height);
    switch (this.state) {
       case "LoadMap" :
@@ -64,25 +78,29 @@ Game.prototype.TimerFct = function(){
 /**
  * Chargement de la map
  */
-Game.prototype.StateLoadMap = function(){
-   //this.map.Load;
-   //if (this.map.LoadedMap)
-   this.state = "LoadImage";
+Game.prototype.StateLoadMap = function() {
+   this.map.Load();
+   if (this.map.Loaded)
+      this.state = "LoadImage";
 
 };
 
 /**
  * Chargement des sprites
  */
-Game.prototype.StateLoadImage = function(){
-   //if (this.images.LoadedImage)
-   this.state = "WaitStart";
+Game.prototype.StateLoadImage = function() {
+   if (this.images.Loaded)
+      this.state = "WaitStart";
 };
 
 /**
  * Verification si tout les joueurs sont la
  */
-Game.prototype.StateWaitStart = function(){
+Game.prototype.StateWaitStart = function() {
+   this.cars.ForEachItem(function() {
+
+   });
+
    this.ctx.font = "29pt Calibri,Geneva,Arial";
    this.ctx.fillStyle = "rgb(0,0,0)";
    //if (this.cars.sprites.Length() >= 4)
@@ -113,19 +131,20 @@ Game.prototype.StateWaitStart = function(){
 /**
  * Le moment de jeu
  */
-Game.prototype.StatePlay = function(){
+Game.prototype.StatePlay = function() {
 
-   // this.cars.ForEachItem(function() {
-   //    this.move();
-   //    self.map.draw(this.x,this.y);
-   //    this.Show(self.map.px,self.map.py);
-   //});
+   this.cars.ForEachItem(function() {
+      this.move();
+      self.map.draw(this.x, this.y);
+      this.Show(self.map.px, self.map.py);
+   });
+   this.cars.SendData();
    this.state = "Finished";
 };
 
 /**
  * Lorsque la course est finie
  */
-Game.prototype.StateFinished = function(){
+Game.prototype.StateFinished = function() {
 
 };
