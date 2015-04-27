@@ -9,12 +9,13 @@
 /*      *   Description         :   Class de l'objet Items             *      */
 /*      ****************************************************************      */
 
-function Items(vaId)
+function Items( vaId )
 {
    // Parametre de la classe ItemsSet
-   this.data = new Array();
+   this.sprites = new Array();
    this.localId = vaId;
    this.loadTime = Date.now();
+   //this.startTime = 
    // Variables de secours de this
    var self = this;
 
@@ -40,7 +41,7 @@ function Items(vaId)
       };
 
       // Envoyer la requette en GET au serveur
-      url = "../php/serveur.php?id=" + this.localId + "&x=" + this.data[this.localId].x + "&y=" + this.data[this.localId].y + "&alpha=" + this.data[this.localId].alpha + "&speed=" + this.data[this.localId].speed + "&energy=" + this.data[this.localId].energy;
+      url = "../php/serveur.php?id=" + this.localId + "&x=" + this.sprites[this.localId].x + "&y=" + this.sprites[this.localId].y + "&alpha=" + this.sprites[this.localId].alpha + "&speed=" + this.sprites[this.localId].speed + "&energy=" + this.sprites[this.localId].energy;
       xHtml.open("GET", url, true);
       xHtml.send(null);
    };
@@ -59,18 +60,21 @@ function Items(vaId)
       for (i = 0; i < vaData.Player.length; i++)
       {
          id = vaData.Player[i].id;
-         if (this.data[id] === undefined)
+         
+         if (this.sprites[id] === undefined)
          {
-            s = new Sprite(vaData.Player[i].x, vaData.Player[i].y, vaData.Player[i].alpha, vaData.Player[i].speed, vaData.Player[i].energy, 0, 0, 0, 0, 0);
-            this.data[id] = s;
+            this.sprites[id] = vaData.Player[i].imgId;
          }
          else
          {
-            this.data[id].x = vaData.Player[i].x;
-            this.data[id].y = vaData.Player[i].y;
-            this.data[id].alpha = vaData.Player[i].alpha;
-            this.data[id].speed = vaData.Player[i].speed;
-            this.data[id].energy = vaData.Player[i].energy;
+            if (typeof(this.sprites[id]) != 'string')
+            {
+               this.sprites[id].x = vaData.Player[i].x;
+               this.sprites[id].y = vaData.Player[i].y;
+               this.sprites[id].alpha = vaData.Player[i].alpha;
+               this.sprites[id].speed = vaData.Player[i].speed;
+               this.sprites[id].energy = vaData.Player[i].energy;
+            }
          }
       }
       this.loadTime = vaData.Stamp;
@@ -85,10 +89,10 @@ function Items(vaId)
     */
    this.ForEachItem = function(vaFct)
    {
-      for (i = 0; i < vaData.Player.length; i++)
+      for (i = 0; i < this.Player.length; i++)
       {
-         id = vaData.Player[i].id;
-         this.data[id].vaFct;
+         id = this.Player[i].id;
+         this.sprites[id].vaFct();
       }
    };
 }
