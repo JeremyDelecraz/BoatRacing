@@ -57,7 +57,7 @@ function Items( vaId )
       vaData = JSON.parse(vaData);
 
       //alert(vaData);
-      for (i = 0; i < vaData.Player.length; i++)
+      for(var id in this.sprites)
       {
          id = vaData.Player[i].id;
          
@@ -69,11 +69,11 @@ function Items( vaId )
          {
             if (typeof(this.sprites[id]) != 'string')
             {
-               this.sprites[id].x = vaData.Player[i].x;
-               this.sprites[id].y = vaData.Player[i].y;
-               this.sprites[id].alpha = vaData.Player[i].alpha;
-               this.sprites[id].speed = vaData.Player[i].speed;
-               this.sprites[id].energy = vaData.Player[i].energy;
+               this.sprites[id].x = vaData.Player[id].x;
+               this.sprites[id].y = vaData.Player[id].y;
+               this.sprites[id].alpha = vaData.Player[id].alpha;
+               this.sprites[id].speed = vaData.Player[id].speed;
+               this.sprites[id].energy = vaData.Player[id].energy;
             }
          }
       }
