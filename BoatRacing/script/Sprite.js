@@ -68,7 +68,7 @@ function Sprite(ctx, img, x, y, frame, anim, rate) {
       //On fait pythagore pour savoir si le rayon de l'un va dans l'autre.
       var pythagore = Math.sqrt(Math.pow((this.x - opponentBoat.x), 2) + Math.pow((this.y - opponentBoat.y), 2));
 
-      if (pythagore <= (this.radius + opponentBoat.radius))
+      if ((pythagore <= (this.radius + opponentBoat.radius)) && (this.shield <= 0) && (opponentBoat.shield <= 0))
       {
          return true;
       }
