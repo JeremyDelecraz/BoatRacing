@@ -17,7 +17,7 @@ function Game(canvas) {
    var self = this;
 
    this.pseudo = "toto";
-   this.cars = new Items(this.pseudo);
+   this.cars = new Items(localid.value);
    this.input = new Input();
    this.input.SetOneKey("up", 87);     // W
    this.input.SetOneKey("left", 65);   // A
@@ -39,7 +39,7 @@ function Game(canvas) {
    this.can = canvas;
    this.ctx = canvas.getContext("2d");
 
-   this.state = "Play";
+   this.state = "LoadImage";
    setInterval(function() {
       self.TimerFct();
    }, 50);
@@ -76,7 +76,6 @@ Game.prototype.TimerFct = function() {
  * Chargement de la map
  */
 Game.prototype.StateLoadMap = function() {
-      this.map.Draw(this.ctx,this.images.images,0,0);
    if (this.map.Loaded)
       this.state = "LoadImage";
 
@@ -94,59 +93,64 @@ Game.prototype.StateLoadImage = function() {
  * Verification si tout les joueurs sont la
  */
 Game.prototype.StateWaitStart = function() {
-   /*if (this.cars.sprites.length == 0)
-   {
-      this.cars.sprites.push( new Sprite(this.ctx, "Images/Map/1.jpg", 10, 10, 0, 0, 0) );
-   }
+   this.map.Draw(this.ctx, this.images.images, 0, 0);
    
-   this.cars.ForEachItem(function() {
-      if (typeof(this) === "string")
-      {
-         this.localId = this.pseudo;
-         this.sprites = new Sprite(this.ctx, "Images/Map/1.jpg", 10, 10, 0, 0, 0);
+   // Créer les sprites s’ils n’existent pas déjà
+   var nbCars = 0;
+   for( id in this.cars.sprites ) {
+      // Pas tenir compte des ID vide
+      if ( id === undefined ) continue;
+
+      // Compter les voitures inscrites
+      nbCars += 1;
+
+      if ( typeof(this.cars.sprites[id]) == "string" ) {
+         this.cars.sprites[id] = new Sprite(this.ctx, "Images/Map/1.jpg", 10, 10, 0, 0, 0);
       }
-   });*/
+   }
 
    this.ctx.font = "29pt Calibri,Geneva,Arial";
    this.ctx.fillStyle = "rgb(0,0,0)";
-   //if (this.cars.sprites.Length() >= 4)
-   //{
-   if (this.timeStart !== 0) {
-      this.ctx.fillText(this.timeStart, this.can.width / 2, this.can.height / 2);
-      if (this.nbTime === 500)
-      {
-         this.timeStart--;
-         this.nbTime = 0;
-      } else
-         this.nbTime += 50;
 
+   if (nbCars >= 4)
+   {
+      if (this.timeStart !== 0) {
+         this.ctx.fillText(this.timeStart, this.can.width / 2, this.can.height / 2);
+         if (this.nbTime === 500)
+         {
+            this.timeStart--;
+            this.nbTime = 0;
+         } else
+            this.nbTime += 50;
+
+      }
+      else {
+         this.ctx.fillText("GO !!!", this.can.width / 2 - 45, this.can.height / 2);
+         this.timeStart = 3;
+         this.state = "Play";
+      }
    }
-   else {
-      this.ctx.fillText("GO !!!", this.can.width / 2 - 45, this.can.height / 2);
-      this.timeStart = 3;
-      this.state = "Play";
+   else
+   {
+      var nbPlayer = 4 - nbCars;
+      this.ctx.fillText("Il manque encore " + nbPlayer + " joueurs", this.can.width / 2 - 225, this.can.height / 2);
    }
-   //}
-   //else
-   //{
-   //var nbPlayer = 4 - this.cars.sprites.Length();
-   //this.ctx.fillText("Il manque encore " + nbPlayer + " joueurs", this.can.width / 2 - 225, this.can.height / 2);
-   //}
+   
 };
 
 /**
  * Le moment de jeu
  */
 Game.prototype.StatePlay = function() {
-   
-      this.map.Draw(this.ctx,this.images.images,10,50);
+
+   this.map.Draw(this.ctx, this.images.images, 0, 0);
 //   this.map.Draw(ctx,this.images,0,0);
    //this.cars.ForEachItem( function(cars, id, sprite) {
    //   sprite.Move();
    //   sprite.Show();
-      //this.sprites[id].Move();
-      //self.map.draw(this.sprites[id].x, this.sprites[id].y);
-      //this.sprites[id].Show(self.map.px, self.map.py);
+   //this.sprites[id].Move();
+   //self.map.draw(this.sprites[id].x, this.sprites[id].y);
+   //this.sprites[id].Show(self.map.px, self.map.py);
    //});
    //this.cars.SendData();
    //this.state = "Finished";
@@ -156,5 +160,5 @@ Game.prototype.StatePlay = function() {
  * Lorsque la course est finie
  */
 Game.prototype.StateFinished = function() {
-   
+
 };

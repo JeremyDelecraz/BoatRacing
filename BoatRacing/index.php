@@ -10,6 +10,7 @@
         }
     </style>
     <body onload="vgGame = new Game(document.getElementById('canGame'));">
+        <input type="hidden" id="localid"  value="">
         <canvas id="canGame" width="640" height="384">
 
         </canvas>

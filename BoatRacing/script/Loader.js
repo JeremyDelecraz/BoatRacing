@@ -15,7 +15,7 @@ function Loader(imgList)
    this.images = {};
    this.total = 0;
    this.error = 0;
-   this.count = 0;
+   this.count = 30;
    this.message = "";
 
 
@@ -50,9 +50,9 @@ function Loader(imgList)
       //console.log( "id = " + listOne + "url = " + imgList[listOne] );
    }
 
-   function Loaded()
+   this.Loaded = function()
    {
-      if (load.count === load.Total)
+      if (self.count === self.total)
       {
          return true;
       }
@@ -62,64 +62,16 @@ function Loader(imgList)
       }
    }
 
-   function GetImage(id)
+   this.GetImage = function (id)
    {
-      if (image[id] == null)
+      if (self.image[id] == null)
       {
          return null;
       }
       else
       {
-         return image[id];
+         return self.image[id];
       }
    }
 
 }
-
-
-/*
- function Loader(list)
- {
- 
- return 0;
- 
- 
- load = new ObjLoader();
- var listOne = list;
- 
- var img = new Image();
- 
- 
- img.onload = function ()
- {
- load.count += 1;
- };
- 
- img.onerror = function ()
- {
- load.message = "Erreur de chargement d'image";
- };
- 
- img.src = listOne.url;
- 
- this.image[listOne.id] = img;
- }
- 
- function Loaded()
- {
- if(load.count === load.Total)
- {
- return true;
- }
- else
- {
- return false;
- }
- }
- 
- function GetImage(id)
- {
- return load.image[id];
- }
- 
- */
