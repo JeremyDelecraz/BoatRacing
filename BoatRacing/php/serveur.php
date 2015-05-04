@@ -94,9 +94,6 @@
         if (!is_numeric($energy))
             array_push ($erreur, 'Energy doit être une valeur numérique');
         
-        // Si aucune erreur n'a été faites durant la saisie.
-        if (count($erreur) == 0)
-        {
             $file = './player.json';
             $p = new Player();
             $p->id = $id;
@@ -114,17 +111,21 @@
                 
                 $obj = json_decode($line);
                 
-                if ( PlayerExist($obj, $p) )
-                    SetPlayer($obj, $p);
-                else
+                if ( count($erreur) == 0 )
                 {
-                    if ( count($obj->Player) < 4 )
-                        AddPlayer($obj, $p);
+                    if ( PlayerExist($obj, $p) )
+                        SetPlayer($obj, $p);
+                    else
+                    {
+                        if ( count($obj->Player) < 4 )
+                            AddPlayer($obj, $p);
+                    }
+
+                    $handle = fopen($file, 'w');
+                    fwrite($handle, json_encode($obj));
+                    fclose($handle);
                 }
                 
-                $handle = fopen($file, 'w');
-                fwrite($handle, json_encode($obj));
-                fclose($handle);
                 
                 echo json_encode($obj);
             }
@@ -142,12 +143,4 @@
                 
                 echo json_encode($obj);
             }
-        }
-        // Affiche les erreurs si il y en a.
-        else
-        {
-            echo '<pre>';
-            print_r($erreur);
-            echo '</pre>';
-        }
     }

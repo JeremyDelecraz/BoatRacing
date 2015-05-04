@@ -41,7 +41,11 @@ function Items( vaId )
       };
 
       // Envoyer la requette en GET au serveur
-      url = "./php/serveur.php?id=" + this.localId + "&x=" + this.sprites[this.localId].x + "&y=" + this.sprites[this.localId].y + "&alpha=" + this.sprites[this.localId].alpha + "&speed=" + this.sprites[this.localId].speed + "&energy=" + this.sprites[this.localId].energy;
+      url = "./php/serveur.php?id=" + this.localId;
+      if ( this.sprites[this.localId] !== undefined ) {
+         url = "./php/serveur.php?id=" + this.localId + "&x=" + this.sprites[this.localId].x + "&y=" + this.sprites[this.localId].y + "&alpha=" + this.sprites[this.localId].alpha + "&speed=" + this.sprites[this.localId].speed + "&energy=" + this.sprites[this.localId].energy;
+      }
+      
       xHtml.open("GET", url, true);
       xHtml.send(null);
    };
@@ -57,13 +61,13 @@ function Items( vaId )
       vaData = JSON.parse(vaData);
 
       //alert(vaData);
-      for(var id in this.sprites)
+      for(var id in vaData.Player)
       {
-         id = vaData.Player[i].id;
+         if ( (id===undefined) || (id=="") ) continue;
          
          if (this.sprites[id] === undefined)
          {
-            this.sprites[id] = vaData.Player[i].imgId;
+            this.sprites[id] = vaData.Player[id].imgId;
          }
          else
          {

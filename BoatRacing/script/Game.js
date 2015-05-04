@@ -95,6 +95,8 @@ Game.prototype.StateLoadImage = function() {
 Game.prototype.StateWaitStart = function() {
    this.map.Draw(this.ctx, this.images.images, 0, 0);
    
+   this.cars.SendData();
+   
    // Créer les sprites s’ils n’existent pas déjà
    var nbCars = 0;
    for( id in this.cars.sprites ) {
