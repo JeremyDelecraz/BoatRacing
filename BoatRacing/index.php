@@ -84,6 +84,14 @@
     <head>
         <title>BoatRacing</title>
         <meta charset="UTF-8" />
+        <?php if ( (count($erreurs) == 0) AND (isset($_POST['submit_pseudo'])) ) { ?>
+        <script type="text/javascript" src="script/Game.js"></script>
+        <script type="text/javascript" src="script/Input.js"></script>
+        <script type="text/javascript" src="script/Loader.js"></script>
+        <script type="text/javascript" src="script/Items.js"></script>
+        <script type="text/javascript" src="script/Sprite.js"></script>
+        <script type="text/javascript" src="script/Map.js"></script>
+        <?php } ?>
         <style type="text/css">
             #canGame{ border: 2px black solid; }
         </style>
@@ -92,6 +100,10 @@
         <?php if ( (count($erreurs) == 0) AND (isset($_POST['submit_pseudo'])) ) { ?>
         
         <canvas id="canGame" width="640" height="384"></canvas>
+        <input type="hidden" id="localid" value="<?php echo $pseudo; ?>"/>
+        <script type="text/javascript">
+            vgGame = new Game(document.getElementById('canGame'));
+        </script>
         
         <?php } else { ?>
         
@@ -105,12 +117,4 @@
         
         <?php } ?>
     </body>
-    <?php if ( (count($erreurs) == 0) AND (isset($_POST['submit_pseudo'])) ) { ?>
-    <script type="text/javascript" src="script/Game.js"></script>
-    <script type="text/javascript" src="script/Input.js"></script>
-    <script type="text/javascript" src="script/Loader.js"></script>
-    <script type="text/javascript" src="script/Items.js"></script>
-    <script type="text/javascript" src="script/Sprite.js"></script>
-    <script type="text/javascript" src="script/Map.js"></script>
-    <?php } ?>
 </html>
