@@ -144,10 +144,9 @@ Game.prototype.StateWaitStart = function() {
 Game.prototype.StatePlay = function() {
 
    this.map.Draw(this.ctx, this.images.images, 0, 0);
-//   this.map.Draw(ctx,this.images,0,0);
-   //this.cars.ForEachItem( function(cars, id, sprite) {
-   //   sprite.Move();
-   //   sprite.Show();
+   //this.cars.ForEachItem( function() {
+   //   this.sprite.Move();
+   //   this.sprite.Show();
    //this.sprites[id].Move();
    //self.map.draw(this.sprites[id].x, this.sprites[id].y);
    //this.sprites[id].Show(self.map.px, self.map.py);
