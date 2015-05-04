@@ -32,10 +32,6 @@ function Loader(imgList)
       img.onload = function()
       {
          self.total += 1;
-         if (self.total == self.count)
-         {
-            alert("C'est bon");
-         }
          //alert("Ca charge");
       }
 

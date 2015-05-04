@@ -14,8 +14,6 @@ function initialise()
 
    // Create a new map
    mapy = new Map();
-
-   mapy.Draw(50 , 50);
 }
 
 function Map()
@@ -110,7 +108,7 @@ Map.prototype.Loaded = function()
  * Affiche la carte en tenant compte de la position du joueur local
  * @param x, y = position du joueur local dans la grille.
  */
-Map.prototype.Draw = function(x, y)
+Map.prototype.Draw = function(ctx,images,x, y)
 {
    var posx = 0;
    var posy = 0;
@@ -147,7 +145,8 @@ Map.prototype.Draw = function(x, y)
    {
       for (var width = left; width < right; width++)
       {
-         var img = document.getElementById(this.map[height][width]);
+         var img = images[this.map[height][width]];
+         //var img = document.getElementById(this.map[height][width]);
          ctx.drawImage(img, 0, 0, 32, 32, posx * 32,  posy * 32, 32, 32);
          posx++;
       }

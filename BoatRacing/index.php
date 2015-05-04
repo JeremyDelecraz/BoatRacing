@@ -10,7 +10,7 @@
         }
     </style>
     <body onload="vgGame = new Game(document.getElementById('canGame'));">
-        <canvas id="canGame" width="720" height="720">
+        <canvas id="canGame" width="640" height="384">
 
         </canvas>
     </body>

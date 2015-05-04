@@ -29,7 +29,7 @@ function Game(canvas) {
    var listImage = {};
    for (i = 1; i < 31; i++)
    {
-      listImage[i - 1] = "Images/Map/" + i + ".jpg";
+      listImage[i] = "Images/Map/" + i + ".jpg";
    }
    this.images = new Loader(listImage);
 
@@ -39,7 +39,7 @@ function Game(canvas) {
    this.can = canvas;
    this.ctx = canvas.getContext("2d");
 
-   this.state = "";
+   this.state = "Play";
    setInterval(function() {
       self.TimerFct();
    }, 50);
@@ -76,7 +76,7 @@ Game.prototype.TimerFct = function() {
  * Chargement de la map
  */
 Game.prototype.StateLoadMap = function() {
-   this.map.Draw(0,0);
+      this.map.Draw(this.ctx,this.images.images,0,0);
    if (this.map.Loaded)
       this.state = "LoadImage";
 
@@ -138,14 +138,16 @@ Game.prototype.StateWaitStart = function() {
  * Le moment de jeu
  */
 Game.prototype.StatePlay = function() {
-   this.map.Draw(0,0)
-   this.cars.ForEachItem( function(cars, id, sprite) {
-      sprite.Move();
-      sprite.Show();
+   
+      this.map.Draw(this.ctx,this.images.images,10,50);
+//   this.map.Draw(ctx,this.images,0,0);
+   //this.cars.ForEachItem( function(cars, id, sprite) {
+   //   sprite.Move();
+   //   sprite.Show();
       //this.sprites[id].Move();
       //self.map.draw(this.sprites[id].x, this.sprites[id].y);
       //this.sprites[id].Show(self.map.px, self.map.py);
-   });
+   //});
    //this.cars.SendData();
    //this.state = "Finished";
 };
