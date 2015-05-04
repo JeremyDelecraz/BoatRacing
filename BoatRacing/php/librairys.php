@@ -20,6 +20,8 @@
     
     function AddPlayer($item, $player)
     {
+        $img = count($item->Player) + 1;
+        $player->imageId = $img;
         array_push($item->Player, $player);
         $item->Stamp = microtime(TRUE);
         if ( count($item->Player) == 4 )

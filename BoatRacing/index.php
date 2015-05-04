@@ -49,19 +49,30 @@
             $p->speed = 0;
             $p->energy = 100;
             
-            $handle = fopen($file, 'r');
-            $line = fgets($handle);
-            fclose($handle); 
-            $obj = json_decode($line);
-            
-            if ( count($obj->Player) < 4 )
-                AddPlayer($obj, $p);
+            if ( file_exists($file) )
+            {
+                $handle = fopen($file, 'r');
+                $line = fgets($handle);
+                fclose($handle); 
+                $obj = json_decode($line);
+
+                if ( count($obj->Player) < 4 )
+                    AddPlayer($obj, $p);
+                else
+                    array_push ($erreurs, '4 joueurs sont déja inscrits');
+
+                $handle = fopen($file, 'w');
+                fwrite($handle, json_encode($obj));
+                fclose($handle);
+            }
             else
-                array_push ($erreurs, '4 joueurs sont déja inscrits');
-                
-            $handle = fopen($file, 'w');
-            fwrite($handle, json_encode($obj));
-            fclose($handle);
+            {
+                $obj = new Items();
+                AddPlayer($obj, $p);
+                $handle = fopen($file, 'w');
+                fwrite($handle, json_encode($obj));
+                fclose($handle);
+            }
         }
     }
 
@@ -95,11 +106,11 @@
         <?php } ?>
     </body>
     <?php if ( (count($erreurs) == 0) AND (isset($_POST['submit_pseudo'])) ) { ?>
-    <script type=\"text/javascript\" src=\"script/Game.js\"></script>
-    <script type=\"text/javascript\" src=\"script/Input.js\"></script>
-    <script type=\"text/javascript\" src=\"script/Loader.js\"></script>
-    <script type=\"text/javascript\" src=\"script/Items.js\"></script>
-    <script type=\"text/javascript\" src=\"script/Sprite.js\"></script>
-    <script type=\"text/javascript\" src=\"script/Map.js\"></script>
+    <script type="text/javascript" src="script/Game.js"></script>
+    <script type="text/javascript" src="script/Input.js"></script>
+    <script type="text/javascript" src="script/Loader.js"></script>
+    <script type="text/javascript" src="script/Items.js"></script>
+    <script type="text/javascript" src="script/Sprite.js"></script>
+    <script type="text/javascript" src="script/Map.js"></script>
     <?php } ?>
 </html>
