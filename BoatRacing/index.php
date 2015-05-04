@@ -91,7 +91,7 @@
     <body>
         <?php if ( (count($erreurs) == 0) AND (isset($_POST['submit_pseudo'])) ) { ?>
         
-        <canvas id="canGame" width=\"640\" height=\"384\"></canvas>
+        <canvas id="canGame" width="640" height="384"></canvas>
         
         <?php } else { ?>
         
