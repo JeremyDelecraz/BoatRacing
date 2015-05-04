@@ -20,7 +20,7 @@ function Sprite(ctx, img, x, y, frame, anim, rate) {
    this.radius = this.w / 2; //Le rayon du sprite pour calculer une hitbox.
    this.energy = 100; //Vie du sprite
    this.update; //Pour le réseau.
-   this.dead = false; //Définni si le bateau c'est fait touché ou non.
+   this.hurt = false; //Définni si le bateau c'est fait touché ou non.
    this.shield = 0; //Bouclier pour quand deux bateau se rentre dedans.
    this.ctx = ctx; //Contexte dans lequel va se trouver l'image (paramètre).
    this.Show = function() { //Fonction pour afficher le sprite.
@@ -73,8 +73,26 @@ function Sprite(ctx, img, x, y, frame, anim, rate) {
          return true;
       }
    };
-   this.IsDead = function()
+   this.IsDead = function() //Cette fonction va permettre de vérifier si le bateau est mort ou non selon l'énergie
    {
-
+      if (this.energy <= 0)
+      {
+         return true;
+      }
+      else
+      {
+         return false;
+      }
+   };
+   this.EndAnim = function() //Cette fonction va vérifier si on arrive à la fin de l'animation ou non.
+   {
+      if (this.sx === 96)
+      {
+         return true;
+      }
+      else
+      {
+         return false;
+      }
    };
 }
