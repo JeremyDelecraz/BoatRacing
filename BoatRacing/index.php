@@ -1,7 +1,4 @@
 <?PHP
-
-
-
 if (isset($_POST['submit_pseudo']) && $_POST['input_pseudo'])
 {
     if(strlen($_POST['input_pseudo']) > 3)
@@ -36,17 +33,7 @@ if (isset($_POST['submit_pseudo']) && $_POST['input_pseudo'])
     
     if(isset($_POST['pseudoOk']) && $_POST['pseudoOk'] == TRUE)
     {
-        echo "<body onload=\"vgGame = new Game(document.getElementById('canGame'));\">
-        <canvas id=\"canGame\" width=\"640\" height=\"384\">
-
-        </canvas>
-    </body>
-    <script type=\"text/javascript\" src=\"script/Game.js\"></script>
-    <script type=\"text/javascript\" src=\"script/Input.js\"></script>
-    <script type=\"text/javascript\" src=\"script/Loader.js\"></script>
-    <script type=\"text/javascript\" src=\"script/Items.js\"></script>
-    <script type=\"text/javascript\" src=\"script/Sprite.js\"></script>
-    <script type=\"text/javascript\" src=\"script/Map.js\"></script>";
+        header("Location: game.php");
     }
  else {
         echo "<form action=\"index.php\" method=\"post\">
