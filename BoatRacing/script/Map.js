@@ -14,11 +14,13 @@ function initialise()
 
    // Create a new map
    mapy = new Map();
+
+   mapy.Draw(1280 , 1408);
 }
 
 function Map()
-{
-   // Tableau à 2 dimensions
+{ 
+  // Tableau à 2 dimensions
    this.map = [
       [4, 4, 2, 4, 4, 8, 1, 1, 1, 1, 1, 9, 4, 4, 4, 4, 4, 4, 4, 4, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 4, 4, 2, 2, 4, 4, 4, 4],
       [2, 4, 4, 4, 2, 8, 1, 1, 1, 1, 1, 9, 4, 4, 2, 4, 4, 2, 2, 4, 2, 2, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 4, 4, 2, 2, 2, 2, 2, 4, 2, 2, 2, 4, 4, 4, 4, 2, 4, 4],
@@ -76,8 +78,8 @@ function Map()
    this.w = 1600; // Int
    this.h = 1600; // Int
    // Indique les coordonnées du point supérieur-gauche
-   //this.px = x - (20 / 2); // Int
-   //this.py = y - (12 / 2); // Int
+   this.px = 0; // Int
+   this.py = 0;// Int
    // Tableau indexé - Image à afficher - Progression freinée - Perte d'energie
    this.tiles = [];
    // Objet contenant des données reçues du serveur - Carte - Nom images tuiles / items
@@ -101,57 +103,93 @@ Map.prototype.Load = function()
  */
 Map.prototype.Loaded = function()
 {
-
+   
 }
 
 /*
  * Affiche la carte en tenant compte de la position du joueur local
  * @param x, y = position du joueur local dans la grille.
  */
-Map.prototype.Draw = function(ctx,images,x, y)
+Map.prototype.Draw = function(x, y)
 {
-   var posx = 0;
-   var posy = 0;
+   var img;
    
-   var top = y - (12 / 2);
-   var left = x - (20 / 2);
-   var bottom = y + (12 / 2);
-   var right = x + (20 / 2);
+   var tileSize = 32;
+   
+   var screenWidth = 20 * tileSize;
+   var screenHeight = 12 * tileSize;
+   
+   var leftBounds = 0;
+   var topBounds = 0;
+   var rightBounds = 50 * tileSize;
+   var bottomBounds = 50 * tileSize;
+   
+   var top = y - (screenHeight / 2);
+   var left = x - (screenWidth / 2);
+   var bottom = y + (screenHeight / 2);
+   var right = x + (screenWidth / 2);
+   
+   var subToLeft  = x % tileSize; 
+   var subToTop = y % tileSize;
+   
+   var addColumn = 0;
+   var addRow = 0;
    
    // Si le bateau est trop proche de la bordure de la map
    // Empêcher la map de sortir hors zone
-   if(left < 0)
+   if(left < leftBounds)
    {
-      left = 0;
-      right = 20;
+      left = leftBounds;
+      right = screenWidth;
+      subToLeft = 0;
    }
-   if(right > 50)
+   if(right > rightBounds)
    {
-      right = 50;
-      left = 50-20;
+      right = rightBounds;
+      left = rightBounds - screenWidth;
+      subToLeft = 0;
    }
-   if(top < 0)
+   if(top < topBounds)
    {
-      top = 0;
-      bottom = 12;
+      top = topBounds;
+      bottom = screenHeight;
+      subToTop = 0;
    }
-   if(bottom > 50)
+   if(bottom > bottomBounds)
    {
-      bottom = 50;
-      top = 50-12;
+      bottom = bottomBounds;
+      top = bottomBounds - screenHeight;
+      subToTop = 0;
    }
    
-   for (var height = top; height < bottom; height++)
+   if(subToLeft === 0)
    {
-      for (var width = left; width < right; width++)
+      addColumn = 0;
+   }
+   else
+   {
+      addColumn = tileSize;
+   }
+   
+   if(subToTop === 0)
+   {
+      addRow = 0;
+   }
+   else
+   {
+      addRow = tileSize;
+   }
+   
+   for (var height = top; height < bottom + addRow; height += tileSize)
+   {
+      for (var width = left; width < right + addColumn; width += tileSize)
       {
-         var img = images[this.map[height][width]];
-         //var img = document.getElementById(this.map[height][width]);
-         ctx.drawImage(img, 0, 0, 32, 32, posx * 32,  posy * 32, 32, 32);
-         posx++;
+         img = this.GetTile([Math.floor(height/tileSize)],[Math.floor(width/tileSize)]);
+         ctx.drawImage(img, 0, 0, tileSize, tileSize, this.px * tileSize - subToLeft,  this.py * tileSize - subToTop, tileSize, tileSize);  
+         this.px++;
       }
-      posx = 0;
-      posy++;
+      this.px = 0;
+      this.py++;
    }
 }
 
@@ -162,5 +200,9 @@ Map.prototype.Draw = function(ctx,images,x, y)
  */
 Map.prototype.GetTile = function(x, y)
 {
-   
+   if(x >= 0 && x <= this.map.length && y >= 0 && y <= this.map.length)
+   {
+      var img = document.getElementById(this.map[x][y]);
+      return img;
+   }
 }
