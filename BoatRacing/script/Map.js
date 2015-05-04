@@ -110,9 +110,9 @@ Map.prototype.Loaded = function()
  * Affiche la carte en tenant compte de la position du joueur local
  * @param x, y = position du joueur local dans la grille.
  */
-Map.prototype.Draw = function(x, y)
+Map.prototype.Draw = function(ctx, img, x, y)
 {
-   var img;
+   //var img;
    
    var tileSize = 32;
    
