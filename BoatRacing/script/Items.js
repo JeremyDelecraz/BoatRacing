@@ -41,7 +41,7 @@ function Items( vaId )
       };
 
       // Envoyer la requette en GET au serveur
-      url = "../php/serveur.php?id=" + this.localId + "&x=" + this.sprites[this.localId].x + "&y=" + this.sprites[this.localId].y + "&alpha=" + this.sprites[this.localId].alpha + "&speed=" + this.sprites[this.localId].speed + "&energy=" + this.sprites[this.localId].energy;
+      url = "http://10.134.98.170/boatracing/serveur.php?id=" + this.localId + "&x=" + this.sprites[this.localId].x + "&y=" + this.sprites[this.localId].y + "&alpha=" + this.sprites[this.localId].alpha + "&speed=" + this.sprites[this.localId].speed + "&energy=" + this.sprites[this.localId].energy;
       xHtml.open("GET", url, true);
       xHtml.send(null);
    };
@@ -67,7 +67,7 @@ function Items( vaId )
          }
          else
          {
-            if (typeof(this.sprites[id]) != 'string')
+            if (typeof(this.sprites[id]) !== 'string')
             {
                this.sprites[id].x = vaData.Player[id].x;
                this.sprites[id].y = vaData.Player[id].y;
