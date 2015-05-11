@@ -5,7 +5,6 @@
  * Version : 1.0
  * Auteur : Jeremy Delécraz
  * *****************************************/
-
 var vgGame = null;
 
 
@@ -16,8 +15,7 @@ var vgGame = null;
 function Game(canvas) {
    var self = this;
 
-   this.pseudo = "toto";
-   this.cars = new Items(this.pseudo);
+    this.cars = new Items(document.getElementById("localid").value);
    this.input = new Input();
    this.input.SetOneKey("up", 87);     // W
    this.input.SetOneKey("left", 65);   // A
@@ -31,6 +29,10 @@ function Game(canvas) {
    {
       listImage[i] = "Images/Map/" + i + ".jpg";
    }
+    for (i=1;i<4;i++)
+    {
+       listImage[i+30] = "Images/SpriteBoat/BateauJ" + i + ".png";
+    }
    this.images = new Loader(listImage);
 
    this.timeStart = 3;
@@ -109,7 +111,7 @@ Game.prototype.StateWaitStart = function() {
       nbCars += 1;
 
       if (typeof (this.cars.sprites[id]) !== "string") {
-         this.cars.sprites[id] = new Sprite(this.ctx, "Images/Map/1.jpg", 10, 10, 0, 0, 0);
+            this.cars.sprites[id] = new Sprite(this.ctx, this.images.GetImage(31 + parseInt(id)), 10, 10, 0, 0, 0);
       }
    }
 
@@ -145,27 +147,35 @@ Game.prototype.StateWaitStart = function() {
  * Le moment de jeu
  */
 Game.prototype.StatePlay = function() {
-   this.map.Draw(this.ctx, this.images.images, 0, 0);
-   this.cars.ForEachItem(function() {
-      if (self.Input.right)
-         this.sprites.alpha++;
-      else if (self.Input.left)
-         this.sprites.alpha--;
+    var self = this;
+    this.cars.ForEachItem(function (items, id, Sprite) {
+        if (self.input.right)
+            Sprite.alpha++;
+        else if (self.input.left)
+            Sprite.alpha--;
+         if (self.input.up)
+            Sprite.speed = 5;
+         else if (self.input.down)
+            Sprite.speed = -5;
+         else 
+            Sprite.speed = 0;
 
-      this.sprites.Move();
-      this.sprites.Show();
-      if (this.sprites.Colision)
-         this.sprites.energy -= 10;
-      if (this.sprites.IsDead)
-         self.state = "Finished";
-      self.map.Draw(self.ctx, self.images.images, this.sprites.x, this.sprites.y);
+        Sprite.Move();
+        
+        if (Sprite.Colision)
+            Sprite.energy -= 10;
+        //if (Sprite.IsDead)
+        //    self.state = "Finished";
+            Sprite.Show();
    });
    this.cars.SendData();
+    
+    this.map.Draw(this.ctx, this.images.images, 0, 0);
 };
 
 /**
  * Lorsque la course est finie
  */
 Game.prototype.StateFinished = function() {
-
+   alert("FINIT");
 };

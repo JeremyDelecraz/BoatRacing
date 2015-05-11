@@ -13,9 +13,9 @@ function Loader(imgList)
    var self = this;
 
    this.images = {};
-   this.total = 0;
+   this.total = 33;
    this.error = 0;
-   this.count = 30;
+   this.count = 0;
    this.message = "";
 
 
@@ -42,7 +42,7 @@ function Loader(imgList)
          //alert(imgList);
          //alert("C'est nul");
 
-         if (self.total != self.count)
+         if (self.total < self.count)
          {
             alert("Toutes les images n'ont pas chargé");
          }
@@ -64,13 +64,13 @@ function Loader(imgList)
 
    this.GetImage = function (id)
    {
-      if (self.image[id] == null)
+      if (self.images[id] == null)
       {
          return null;
       }
       else
       {
-         return self.image[id];
+         return self.images[id];
       }
    }
 
