@@ -1,0 +1,28 @@
+body
+{
+    width: 800px;
+    height: 550px;
+    background-color: #1A1A1A;
+    margin: auto;
+}
+#canGame
+{ 
+    border: 2px black solid;
+    margin-left: 75px;
+
+}
+#Background
+{
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    background-image: url("../Images/CSS/background.jpg");
+    background-position:  top;
+    border: 5px black solid;
+}
+#BoatRacing
+{
+    margin-left: 32%;
+    font-size: 300%;
+    margin-top: 45px;
+    color: white;
+}

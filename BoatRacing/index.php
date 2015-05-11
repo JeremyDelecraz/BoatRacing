@@ -92,15 +92,19 @@
         <script type="text/javascript" src="script/Sprite.js"></script>
         <script type="text/javascript" src="script/Map.js"></script>
         <?php } ?>
-        <style type="text/css">
-            #canGame{ border: 2px black solid; }
-        </style>
+        <link rel="stylesheet" type="text/css" href="style/style.css">
     </head>      
-    <body <?php if ( (count($erreurs) == 0) AND (isset($_POST['submit_pseudo'])) ) { ?> onload="vgGame = new Game( document.getElementById('canGame'));" <?PHP }?>>
+    <!--<body <?php if ( (count($erreurs) == 0) AND (isset($_POST['submit_pseudo'])) ) { ?> onload="vgGame = new Game( document.getElementById('canGame'));" <?PHP }?>>-->
+    <body>   
         <?php if ( (count($erreurs) == 0) AND (isset($_POST['submit_pseudo'])) ) { ?>
-        
-        <canvas id="canGame" width="640" height="384"></canvas>
         <input type="hidden" id="localid" value="<?php echo $pseudo; ?>"/>
+        <div id="Background">
+            <h1 id="BoatRacing">Boat Racing</h1>
+            <canvas id="canGame" width="640" height="384">
+
+            </canvas>
+        </div>
+        
         <script type="text/javascript">
             vgGame = new Game(document.getElementById('canGame'));
         </script>
