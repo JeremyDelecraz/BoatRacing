@@ -2,12 +2,12 @@ body
 {
     width: 800px;
     height: 550px;
-    background-color: #1A1A1A;
+    background-color: #1A1313;
     margin: auto;
 }
 #canGame
 { 
-    border: 2px black solid;
+    border: 4px black solid;
     margin-left: 75px;
 
 }
@@ -17,12 +17,34 @@ body
     height: calc(100% - 10px);
     background-image: url("../Images/CSS/background.jpg");
     background-position:  top;
-    border: 5px black solid;
+    border: 10px black solid;
 }
 #BoatRacing
 {
-    margin-left: 32%;
+    text-align: center;
     font-size: 300%;
-    margin-top: 45px;
+    margin-top: 10px;
     color: white;
+}
+#Inputs
+{
+    text-align: center;
+}
+#valider
+{
+    text-align: center;
+}
+#form
+{
+    height : 210px;
+}
+span
+{
+     color: white;
+     font-weight: bold;
+}
+#Title
+{
+    background-image: url("../Images/CSS/Titre.jpg");
+    width:100%;
 }
