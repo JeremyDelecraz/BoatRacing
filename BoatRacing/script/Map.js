@@ -180,12 +180,17 @@ Map.prototype.Draw = function(ctx, imga, x, y)
       addRow = tileSize;
    }
    
+   this.py = 0; 
+   this.px = 0; 
+   
    for (var height = top; height < bottom + addRow; height += tileSize)
    {
+      
       for (var width = left; width < right + addColumn; width += tileSize)
       {
          img = this.GetTile(Math.floor(height/tileSize),Math.floor(width/tileSize),imga);
          ctx.drawImage(img, 0, 0, tileSize, tileSize, this.px * tileSize - subToLeft,  this.py * tileSize - subToTop, tileSize, tileSize);  
+         //ctx.drawImage(img, 0, 0, tileSize, tileSize, width - left - subToLeft,  height - top - subToTop, tileSize, tileSize);  
          this.px++;
       }
       this.px = 0;
