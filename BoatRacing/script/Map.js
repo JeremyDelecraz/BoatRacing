@@ -110,9 +110,9 @@ Map.prototype.Loaded = function()
  * Affiche la carte en tenant compte de la position du joueur local
  * @param x, y = position du joueur local dans la grille.
  */
-Map.prototype.Draw = function(ctx, img, x, y)
+Map.prototype.Draw = function(ctx, imga, x, y)
 {
-   //var img;
+   var img;
    
    var tileSize = 32;
    
@@ -184,7 +184,7 @@ Map.prototype.Draw = function(ctx, img, x, y)
    {
       for (var width = left; width < right + addColumn; width += tileSize)
       {
-         img = this.GetTile([Math.floor(height/tileSize)],[Math.floor(width/tileSize)]);
+         img = this.GetTile(Math.floor(height/tileSize),Math.floor(width/tileSize),imga);
          ctx.drawImage(img, 0, 0, tileSize, tileSize, this.px * tileSize - subToLeft,  this.py * tileSize - subToTop, tileSize, tileSize);  
          this.px++;
       }
@@ -198,11 +198,11 @@ Map.prototype.Draw = function(ctx, img, x, y)
  * @param x, y = position de la case à lire
  * @return { slow : Number, energy : Number 
  */
-Map.prototype.GetTile = function(x, y)
+Map.prototype.GetTile = function(x, y,imga)
 {
    if(x >= 0 && x <= this.map.length && y >= 0 && y <= this.map.length)
    {
-      var img = document.getElementById(this.map[x][y]);
+      var img = imga[this.map[x][y]];
       return img;
    }
 }

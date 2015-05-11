@@ -96,7 +96,7 @@
             #canGame{ border: 2px black solid; }
         </style>
     </head>      
-    <body>
+    <body <?php if ( (count($erreurs) == 0) AND (isset($_POST['submit_pseudo'])) ) { ?> onload="vgGame = new Game( document.getElementById('canGame'));" <?PHP }?>>
         <?php if ( (count($erreurs) == 0) AND (isset($_POST['submit_pseudo'])) ) { ?>
         
         <canvas id="canGame" width="640" height="384"></canvas>
