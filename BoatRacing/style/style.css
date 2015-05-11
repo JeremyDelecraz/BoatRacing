@@ -9,6 +9,7 @@ body
 { 
     border: 4px black solid;
     margin-left: 75px;
+    border-radius: 5px;
 
 }
 #Background
@@ -18,6 +19,8 @@ body
     background-image: url("../Images/CSS/background.jpg");
     background-position:  top;
     border: 10px black solid;
+    border-radius: 20px;
+    margin-top: 5%;
 }
 #BoatRacing
 {
