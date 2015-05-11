@@ -71,7 +71,7 @@ function Items( vaId )
          }
          else
          {
-            if (typeof(this.sprites[id]) !== 'string')
+            if ((typeof(this.sprites[id]) !== 'string') && (this.sprites[id] !== localId))
             {
                this.sprites[id].x = vaData.Player[id].x;
                this.sprites[id].y = vaData.Player[id].y;
